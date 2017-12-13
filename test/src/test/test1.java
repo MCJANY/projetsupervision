@@ -31,8 +31,6 @@ public static void csvReader(String fichier){
 	  
 	  FileReader monFichier = null;
 	  BufferedReader tampon = null;
-	  String name = "";
-	  String si = "";
 	  
 	  try {
 	  monFichier = new FileReader(fichier);
@@ -47,26 +45,11 @@ public static void csvReader(String fichier){
 			  index ++;
 			  if(index == 1){}//Supprime premiere ligne
 			  else if(index == 2){}// on ignore
-//			  else if(index == 2 ) {
-//				  colonneList = splittedLigne;
-//				  name = splittedLigne[0];
-//				  si = splittedLigne[1];
-//				  //System.out.println(splittedLigne[0]);
-//				  //System.out.println(splittedLigne[1]);
-//			  System.out.println(Arrays.toString(colonneList));
-//				  //String lol = Arrays.toString(colonneList);
-//				  //System.out.println(colonneList[4]);
-//				  //colonneList 
-//				  //System.out.println(splittedLigne[0]);
-//			  }
 			  else if(index > 2 )
 			  {
 				 String[] colValue = new String[]{splittedLigne[COLONNE_NAME], splittedLigne[COLONNE_PATH], splittedLigne[COLONNE_CPU], splittedLigne[COLONNE_Description], splittedLigne[COLONNE_ID], splittedLigne[COLONNE_PROCESSNAME]};
 				 processList.add(colValue);
 				 System.out.println(Arrays.toString(colValue));
-
-				  //System.out.println(splittedLigne[0]+";"+splittedLigne[1]+";"+splittedLigne[2]+";"+splittedLigne[3]+";"+splittedLigne[4]+";"+splittedLigne[5]);
-				  //System.out.println(Arrays.toString(splittedLigne[0,1]));
 			  }
 
 		  }
