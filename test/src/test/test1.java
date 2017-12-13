@@ -26,7 +26,9 @@ private static final int COLONNE_UNVISIBLE_PROCESSUS_MEMORY_USAGE=6;
 private static final int COLONNE_VIRTUAL_MEMORY_USAGE=3;
 
 	public static void powerShell() throws IOException{
-		String command = "powershell.exe \"C:\\Users\\natha\\Documents\\test.ps1\" ";
+		//String command = "powershell.exe \"C:\\Users\\natha\\Documents\\test.ps1\" ";
+		System.out.println("Powershell begin");
+		String command = "powershell.exe \"src/test.ps1\" ";
 		Process powerShellProcess = Runtime.getRuntime().exec(command);
 		powerShellProcess.getOutputStream().close();
 	}
@@ -83,7 +85,8 @@ public static void csvReader(String fichier){
 }
 
 public static void startMonitoring() {
-	String csvFile = "C:\\Users\\natha\\Documents\\get-process_usage_cpu.csv";
+	//String csvFile = "C:\\Users\\natha\\Documents\\get-process_usage_cpu.csv";
+	String csvFile = "./src/get-process_usage_cpu.csv";
 	if (!started) {
 		started = true;
 		Thread thread = new Thread() {
