@@ -11,7 +11,7 @@ import java.util.List;
 public class test1 {
 	
 private static List<String[]> processList = null;
-private static String[] columnName = new String[]{"Name","Path","CPU","Description","ID","Processname"};
+private static String[] columnName = new String[]{"Name","Path","Description","ID","Processname","CPU(s)", "Visible Processus Memory Usage(Ko)","Unvisible Processus Memory usage(Ko)", "Virtual Memory Usage(Mo)"};
 private static boolean started = false;
 private static final int COLONNE_NAME=0;
 private static final int COLONNE_PATH=8;
@@ -19,6 +19,11 @@ private static final int COLONNE_CPU=10;
 private static final int COLONNE_Description=13;
 private static final int COLONNE_ID=23;
 private static final int COLONNE_PROCESSNAME=49;
+
+
+private static final int COLONNE_VISIBLE_PROCESSUS_MEMORY_USAGE=5;
+private static final int COLONNE_UNVISIBLE_PROCESSUS_MEMORY_USAGE=6;
+private static final int COLONNE_VIRTUAL_MEMORY_USAGE=3;
 
 	public static void powerShell() throws IOException{
 		String command = "powershell.exe \"C:\\Users\\natha\\Documents\\test.ps1\" ";
@@ -47,7 +52,7 @@ public static void csvReader(String fichier){
 			  else if(index == 2){}// on ignore
 			  else if(index > 2 )
 			  {
-				 String[] colValue = new String[]{splittedLigne[COLONNE_NAME], splittedLigne[COLONNE_PATH], splittedLigne[COLONNE_CPU], splittedLigne[COLONNE_Description], splittedLigne[COLONNE_ID], splittedLigne[COLONNE_PROCESSNAME]};
+				 String[] colValue = new String[]{splittedLigne[COLONNE_NAME], splittedLigne[COLONNE_PATH], splittedLigne[COLONNE_Description], splittedLigne[COLONNE_ID], splittedLigne[COLONNE_PROCESSNAME], splittedLigne[COLONNE_CPU],splittedLigne[COLONNE_VISIBLE_PROCESSUS_MEMORY_USAGE],splittedLigne[COLONNE_UNVISIBLE_PROCESSUS_MEMORY_USAGE],splittedLigne[COLONNE_VIRTUAL_MEMORY_USAGE]};
 				 processList.add(colValue);
 				 System.out.println(Arrays.toString(colValue));
 			  }
