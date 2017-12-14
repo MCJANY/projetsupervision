@@ -90,15 +90,12 @@ public static void startMonitoring() {
 			public void run() {
 				while (started) {
 					try {
+						powerShell();
+						csvReader(csvFile);
 						Thread.sleep(500);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
-					 
-					 try {
-						powerShell();
-						 csvReader(csvFile);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
