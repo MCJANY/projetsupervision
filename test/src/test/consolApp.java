@@ -1,6 +1,7 @@
 package test;
 
 import java.util.*;
+import java.io.IOException;
 
 public class consolApp {
     private static final String SMTP_HOST_NAME = "smtp.gmail.com";
@@ -11,22 +12,32 @@ public class consolApp {
 		//emailSender myEmailBox = new emailSender(SMTP_HOST_NAME, SMTP_AUTH_USER, SMTP_AUTH_PWD);
 		//myEmailBox.sendEmail(SMTP_AUTH_USER, "Warning : Memory overload", "Be carefull, the memory of the computer with the following IP adress reached over than 80%");
 		
-	       Timer timer = new Timer();
+		System.out.println("Create process");
+		processRetriever process = new processRetriever();
+		
+		/*try {
+			System.out.println("Exec Process Cpu");
+			process.execGetProcessCpu();
+		 } catch (IOException e) {
+			 // TODO Auto-generated catch block
+			 e.printStackTrace();
+		 }*/
+		
+		/*System.out.println("Read Process Cpu");
+		process.readProcessCpu();
+		
+		System.out.println("Exec Process Mem");
+		process.execGetProcessMemory();
+		System.out.println("Read Process Mem");
+		process.readProcessMemory();
+		*/
+		//System.out.println("Start Monitoring");
+		//process.startMonitoring("cpu");
+		System.out.println("Stop Monitoring");
+		process.startMonitoring("mem");
+		
+		//process.stopMonitoring();
+		
 
-
-	       // Schedule to run after every 3 second(3000 millisecond)
-	       timer.scheduleAtFixedRate( new PeriodicalTask(), 1000, 2000);
 	   }
-}
-
-class PeriodicalTask extends TimerTask {
-
-
-    int count = 1;
-
-    // run is a abstract method that defines task performed at scheduled time.
-    public void run() {
-        System.out.println(count+" : Mahendra Singh");
-        count++;
-    }
 }
