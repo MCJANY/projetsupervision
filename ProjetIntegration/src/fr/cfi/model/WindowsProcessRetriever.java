@@ -6,15 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProcessRetriever {
+public class WindowsProcessRetriever implements IProcessRetriever {
 	
-	//public static String[] columnName = new String[]{"Name", "Path", "Description", "ID", "Processname", "RAM (Ko)", "Start Time", "Process Time"};
+
 	public static final String[] COLONNES = new String[] {"Name", "Path", "Description", "PID", "ProcessName", "RAM (Ko)","StartTime", "TotalProcessorTime","CPU"};
-	public static final int COLONNE_NAME_INDEX=0;//
-	public static final int COLONNE_NPM_INDEX=1;//
-	public static final int COLONNE_PATH_INDEX=2;//
-	public static final int COLONNE_PID_INDEX=3;//
-	
 	private static boolean started = false;
 
 	
@@ -38,7 +33,7 @@ public class ProcessRetriever {
 	
 	private static String[] processHeader = new String[10];
 	
-	public ProcessRetriever() {
+	public WindowsProcessRetriever() {
 		// TODO Auto-generated constructor stub*
 		// Paths - Refresh interval - 
 		
@@ -87,7 +82,7 @@ public class ProcessRetriever {
 						processHeader[splittedLigne.length] = "CPU";
 					}*/
 					
-					// Supprime premiere et deuxième ligne
+					// Supprime premiere et deuxiï¿½me ligne
 					if(index > 2 ){
 						/*while(splittedLigne[COLONNE_NAME].charAt(0) == '\0'){
 							splittedLigne[COLONNE_NAME] = splittedLigne[COLONNE_NAME].substring(1);
@@ -274,6 +269,12 @@ public class ProcessRetriever {
 		if (started) {
 			started = false;
 		}
+	}
+
+	@Override
+	public String[] getColonnes() {
+		
+		return COLONNES;
 	}
 
 

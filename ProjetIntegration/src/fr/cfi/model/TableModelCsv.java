@@ -13,7 +13,7 @@ public class TableModelCsv extends DefaultTableModel {
 	/**
 	 * 
 	 */
-	private static ProcessRetriever processRet = new ProcessRetriever();
+	private static IProcessRetriever processRet = null;
 	private static final long serialVersionUID = -3375042552636018063L;
 	private static Map<String, String[]> processList = null;
 	private static List<String> pidList = null;
@@ -26,13 +26,13 @@ public class TableModelCsv extends DefaultTableModel {
 
 	@Override
 	public String getColumnName(int column) {
-		return ProcessRetriever.COLONNES[column];
+		return WindowsProcessRetriever.COLONNES[column];
 	}
 
 	@Override
 	public int getColumnCount() {
 		// TODO Auto-generated method stub
-		return ProcessRetriever.COLONNES.length;
+		return WindowsProcessRetriever.COLONNES.length;
 	}
 
 	@Override
@@ -70,9 +70,23 @@ public class TableModelCsv extends DefaultTableModel {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
+	
+	private void initProcessRetriever() {
+		if(processRet == null) {
+			String property = System.getProperty("os.name");
+			System.out.println("os.name="+ property);
+			if(property.toLowerCase().contains("windows")) {
+				processRet = new WindowsProcessRetriever();
+			}
+			else {
+				processRet = new LinuxProcessRetriever();
+			}
+		}
+	}
 
 	public void updateValues() {
-
+		initProcessRetriever() ;
+		
 		if (processList == null) {
 			processList = new HashMap<>();
 			//cpuList = new ArrayList<>();
@@ -84,7 +98,7 @@ public class TableModelCsv extends DefaultTableModel {
 		List<String[]> sortedProcessList = processRet.execGetProcess();
 		String pid = null;
 		for (String[] values : sortedProcessList) {
-			pid = values[ProcessRetriever.COLONNE_PID_INDEX];
+			pid = values[WindowsProcessRetriever.COLONNE_PID_INDEX];
 			//System.out.println("Values= PID = " + pid + " => "+ Arrays.toString(values));
 			processList.put(pid, values);
 			if(!pidList.contains(pid)) {
@@ -124,6 +138,7 @@ public class TableModelCsv extends DefaultTableModel {
 				public void run() {
 					while (started) {
 						try{
+							initProcessRetriever() ;
 							processRet.execGetProcess();
 							updateValues();
 							Thread.sleep(10000);
