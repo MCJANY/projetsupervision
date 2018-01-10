@@ -22,7 +22,9 @@ public class TableModelCsv extends DefaultTableModel {
 	//private static String[] columnName = new String[] { "Name", "Path", "CPU", "Description", "ID", "Processname" };
 	private boolean started = false;
 
-	
+	public TableModelCsv () {
+		initProcessRetriever();
+	}
 
 	@Override
 	public String getColumnName(int column) {
@@ -31,8 +33,9 @@ public class TableModelCsv extends DefaultTableModel {
 
 	@Override
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
-		return processRet.getColonnes().length;
+		String[] tabColonne = processRet.getColonnes();
+		int nbColonne = tabColonne.length;
+		return nbColonne;
 	}
 
 	@Override
@@ -140,7 +143,7 @@ public class TableModelCsv extends DefaultTableModel {
 							initProcessRetriever() ;
 							processRet.sortProcess();
 							updateValues();
-							Thread.sleep(10000);
+							Thread.sleep(1000);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
