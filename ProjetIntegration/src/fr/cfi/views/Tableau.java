@@ -44,7 +44,7 @@ public class Tableau extends JFrame {
 	private static JLabel InformationsLabel = new JLabel("InformationsLabel");
 
 	public Tableau() {
-		InformationsLabel.setText("Non connecté à la base de données ..");
+		InformationsLabel.setText("Non connectï¿½ ï¿½ la base de donnï¿½es ..");
 		boolean connected = connexion.connecBD("", "admin", "admin");
 		Identification.setEnabled(connected);
 		// this.setLocationRelativeTo(null);
@@ -77,7 +77,7 @@ public class Tableau extends JFrame {
 		});
 		chartModel.startMonitoring();
 		
-		onglet.addTab("RAM",ex);
+		onglet.addTab("CPU USAGE",ex);
 		//onglet.setTitleAt(1,"RAM");
 		onglet.addTab("USERS",new JLabel("users"));
 		//onglet.setTitleAt(2,"USERS");
@@ -94,13 +94,13 @@ public class Tableau extends JFrame {
 					/* Hashtable<String, String> result = */popup.login(tableExemple, connexion);
 				}
 
-				if (Identification.getText().equals("Se déconnecter")) {
+				if (Identification.getText().equals("Se dï¿½connecter")) {
 					connexion.unlogUser();
 				}
 
 				// Identification.setEnabled(!connexion.isLogged());
 				if (connexion.isLogged()) {
-					Identification.setText("Se déconnecter");
+					Identification.setText("Se dï¿½connecter");
 				} else {
 					// Popup popup = new Popup();
 					/// *Hashtable<String, String> result = */popup.login(tableExemple,connexion);
@@ -172,7 +172,7 @@ public class Tableau extends JFrame {
 
 	public static void setInformationsLabelText(String text) {
 		InformationsLabel.setText(text);
-		if (text.equals("Connecté à la base de données")) {
+		if (text.equals("Connectï¿½ ï¿½ la base de donnï¿½es")) {
 			Identification.setEnabled(true);
 		}
 	}
