@@ -24,7 +24,7 @@ import fr.cfi.model.IChartModelListener;
 import fr.cfi.model.IConnexion;
 import fr.cfi.model.TableModelCsv;
 
-public class Tableau extends JFrame {
+public class MainWindow extends JFrame {
 
 	private static IConnexion connexion;
 
@@ -43,7 +43,7 @@ public class Tableau extends JFrame {
 
 	private static JLabel InformationsLabel = new JLabel("InformationsLabel");
 
-	public Tableau() {
+	public MainWindow() {
 		InformationsLabel.setText("Non connect� � la base de donn�es ..");
 		boolean connected = connexion.connecBD("", "admin", "admin");
 		Identification.setEnabled(connected);
@@ -66,7 +66,7 @@ public class Tableau extends JFrame {
 		Identification.setEnabled(false);
 
 		// TABLEAU RAM
-		ChartExemple ex = new ChartExemple();
+		Chart ex = new Chart();
 		ChartModel chartModel = new ChartModel(new IChartModelListener() {
 			@Override
 			public void dataChanged(XYDataset dataset) {
@@ -193,7 +193,7 @@ public class Tableau extends JFrame {
 	 */
 	public static void main(String[] args) {
 		connexion = new Connect_BDD();
-		Tableau fen = new Tableau();
+		MainWindow fen = new MainWindow();
 
 		fen.setVisible(true);
 	}

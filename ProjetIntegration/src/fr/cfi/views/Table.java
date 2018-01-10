@@ -10,11 +10,11 @@ import javax.swing.table.AbstractTableModel;
 
 import fr.cfi.model.TableModelCsv;
 
-public class TableExemple extends JPanel{
+public class Table extends JPanel{
 	private static final long serialVersionUID = -2162370977935676387L;
 	JTable table= null;
 
-	public TableExemple() {
+	public Table() {
 		initComponents();
 	}
 	
@@ -38,7 +38,7 @@ public class TableExemple extends JPanel{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		TableModelCsv tableModel = new TableModelCsv();
-		TableExemple tableExemple = new TableExemple();
+		Table tableExemple = new Table();
 		tableExemple.setModel(tableModel);
 		
 		frame.setContentPane(tableExemple);

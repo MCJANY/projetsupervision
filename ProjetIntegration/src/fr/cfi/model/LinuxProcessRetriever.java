@@ -10,9 +10,9 @@ import java.util.List;
 public class LinuxProcessRetriever implements IProcessRetriever {
 
 	@Override
-	public List<String[]> execGetProcess() {
+	public List<String[]> sortProcess() {
 		List<String[]> process = new ArrayList<String[]>();
-		String command = "ps -eo pid,psr,pcpu,comm,%mem,args,vsize ";
+		String command = "ps -eo pri,pid,pcpu,comm,%mem,vsize ";
 		Process linuxShellProcess;
 		try {
 			linuxShellProcess = Runtime.getRuntime().exec(command);
@@ -43,13 +43,13 @@ public class LinuxProcessRetriever implements IProcessRetriever {
 	
 	@Override
 	public String[] getColonnes() {
-		
-		return null;
+		String[] colonneName = {"PRI", "PID", "%CPU", "Command", "%MEM", "Virtual Size"}; 
+		return colonneName;
 	}
 	
 	public static void main(String[] args) {
 		LinuxProcessRetriever linuxProcessRetriever = new LinuxProcessRetriever();
-		linuxProcessRetriever.execGetProcess();
+		linuxProcessRetriever.sortProcess();
 	}
 
 }

@@ -9,7 +9,7 @@ public interface IProcessRetriever {
 	public static final int COLONNE_PATH_INDEX=2;//
 	public static final int COLONNE_PID_INDEX=3;//
 	
-	public List<String[]> execGetProcess() ;
+	public List<String[]> sortProcess() ;
 	
 	public String[] getColonnes();
 }

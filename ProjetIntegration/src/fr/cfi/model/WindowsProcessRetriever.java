@@ -3,6 +3,7 @@ package fr.cfi.model;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,18 +40,20 @@ public class WindowsProcessRetriever implements IProcessRetriever {
 		
 	}
 	
-	public void execGetProcessMemory() throws IOException{
+	public BufferedReader execGetProcessMemory() throws IOException{
 		String command = "powershell.exe \"src/script/getProcessMemory.ps1\" ";
 		Process powerShellProcess = Runtime.getRuntime().exec(command);
 		System.out.println("Close file .ps1");
-		powerShellProcess.getOutputStream().close();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(powerShellProcess.getInputStream()));
+		return reader;
 	}
 	
-	public void execGetProcessCpu() throws IOException{
+	public BufferedReader execGetProcessCpu() throws IOException{
 		String command = "cmd /c src\\script\\getProcessCpu.bat";
 		Process batchProcess = Runtime.getRuntime().exec(command);
 		System.out.println("Close file .bat");
-		batchProcess.getOutputStream().close();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(batchProcess.getInputStream()));
+		return reader;
 	}
 	
 	public List<String[]> readProcessMemory(){
@@ -61,8 +64,9 @@ public class WindowsProcessRetriever implements IProcessRetriever {
 		BufferedReader tampon = null;
   
 		try {
-			monFichier = new FileReader(fichier);
-			tampon = new BufferedReader(monFichier);
+			//monFichier = new FileReader(fichier);
+			//tampon = new BufferedReader(monFichier);
+			tampon = execGetProcessMemory();
 			int index = 0;
 
 			String ligne = "toto";
@@ -123,8 +127,9 @@ public class WindowsProcessRetriever implements IProcessRetriever {
 		BufferedReader tampon = null;
 
 		try {
-			monFichier = new FileReader(fichier);
-			tampon = new BufferedReader(monFichier);
+			//monFichier = new FileReader(fichier);
+			//tampon = new BufferedReader(monFichier);
+			tampon = execGetProcessCpu();
 			int index = 0;
 
 			String ligne = "1";
@@ -239,25 +244,11 @@ public class WindowsProcessRetriever implements IProcessRetriever {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						 
-						 try {
-							 //if(data == "mem") {
-							 execGetProcessMemory();
-							 //readProcessMemory();
-						 //}else if(data == "cpu") {
-							 execGetProcessCpu();
-							 //readProcessCpu();
-						 //}
-							 List<String[]> sortedProcess = sortProcess();
-							 //System.out.println("====== SORTED PROCESS ======");
-							 /*for(int i=0; i < sortedProcess.get(0).length; i++){
-								 System.out.println(sortedProcess.get(0)[i]);
-							 }*/
-
-						 } catch (IOException e) {
-							 // TODO Auto-generated catch block
-							 e.printStackTrace();
-						 }
+						 List<String[]> sortedProcess = sortProcess();
+						 //System.out.println("====== SORTED PROCESS ======");
+						 /*for(int i=0; i < sortedProcess.get(0).length; i++){
+							 System.out.println(sortedProcess.get(0)[i]);
+						 }*/
 					}
 				};
 			};

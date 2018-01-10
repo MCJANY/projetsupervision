@@ -4,7 +4,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import fr.cfi.views.Tableau;
+import fr.cfi.views.MainWindow;
 
 public class Connect_BDD  implements IConnexion
 {
@@ -31,7 +31,7 @@ public class Connect_BDD  implements IConnexion
 
 			System.out.println("Connexion effective !");     
 			connected = true;
-			Tableau.setConnectionEstablished();
+			MainWindow.setConnectionEstablished();
 
 		} catch (Exception e){
 			e.printStackTrace();
@@ -55,17 +55,17 @@ public class Connect_BDD  implements IConnexion
 					if(resQuery.getString("Mdp").equals(password)) {
 						logged = true;
 						admin = resQuery.getString("Status").equals("admin");
-						Tableau.setInformationsLabelText((admin ? "Administrateur " : "Utilisateur ") + "identifié");
+						MainWindow.setInformationsLabelText((admin ? "Administrateur " : "Utilisateur ") + "identifiï¿½");
 					}else {
-						Tableau.setInformationsLabelText("Erreur : Mot de passe incorrect !");
+						MainWindow.setInformationsLabelText("Erreur : Mot de passe incorrect !");
 					}
 				}else{
-					Tableau.setInformationsLabelText("Erreur : Nom d'utilisateur incorrect !");
+					MainWindow.setInformationsLabelText("Erreur : Nom d'utilisateur incorrect !");
 				}
 			}
 			
 		}catch (Exception e) {
-			Tableau.setInformationsLabelText("Sql Err login");
+			MainWindow.setInformationsLabelText("Sql Err login");
 		}
 		return logged;
 	}
@@ -75,7 +75,7 @@ public class Connect_BDD  implements IConnexion
 		Thread thread = new Thread("Connection Thread") {
 			public void run() {
 				connectionBDD( host,  user,  password );
-				Tableau.setInformationsLabelText("Connecté à la base de données");
+				MainWindow.setInformationsLabelText("Connectï¿½ ï¿½ la base de donnï¿½es");
 			};
 		};
 		
@@ -88,7 +88,7 @@ public class Connect_BDD  implements IConnexion
 	public void unlogUser(){
 		admin = false;
 		logged = false;
-		Tableau.setInformationsLabelText("Utilisateur déconnecté");
+		MainWindow.setInformationsLabelText("Utilisateur dï¿½connectï¿½");
 	}
 
 

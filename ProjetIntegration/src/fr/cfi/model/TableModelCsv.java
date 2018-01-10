@@ -26,18 +26,17 @@ public class TableModelCsv extends DefaultTableModel {
 
 	@Override
 	public String getColumnName(int column) {
-		return WindowsProcessRetriever.COLONNES[column];
+		return processRet.getColonnes()[column];
 	}
 
 	@Override
 	public int getColumnCount() {
 		// TODO Auto-generated method stub
-		return WindowsProcessRetriever.COLONNES.length;
+		return processRet.getColonnes().length;
 	}
 
 	@Override
 	public boolean isCellEditable(int row, int column) {
-
 		return false;
 	}
 
@@ -95,7 +94,7 @@ public class TableModelCsv extends DefaultTableModel {
 
 
 		List<String> newPIDList = new ArrayList<>();
-		List<String[]> sortedProcessList = processRet.execGetProcess();
+		List<String[]> sortedProcessList = processRet.sortProcess();
 		String pid = null;
 		for (String[] values : sortedProcessList) {
 			pid = values[WindowsProcessRetriever.COLONNE_PID_INDEX];
@@ -139,7 +138,7 @@ public class TableModelCsv extends DefaultTableModel {
 					while (started) {
 						try{
 							initProcessRetriever() ;
-							processRet.execGetProcess();
+							processRet.sortProcess();
 							updateValues();
 							Thread.sleep(10000);
 						} catch (InterruptedException e) {

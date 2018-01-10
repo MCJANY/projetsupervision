@@ -21,9 +21,9 @@ import org.jfree.data.xy.XYDataset;
 import fr.cfi.model.ChartModel;
 import fr.cfi.model.IChartModelListener;
 
-public class ChartExemple extends ChartPanel {
+public class Chart extends ChartPanel {
 	
-	public ChartExemple() {
+	public Chart() {
 		super(ChartFactory.createTimeSeriesChart(             
 		         "Memory usage", 
 		         "Millisecond",              
@@ -58,7 +58,7 @@ public class ChartExemple extends ChartPanel {
 
 		//chart.getLegend().setFrame(BlockBorder.NONE);
 
-		chart.setTitle(new TextTitle("Utilisation mémoire dans le temps", new Font("Serif", java.awt.Font.BOLD, 18)));
+		chart.setTitle(new TextTitle("Utilisation mï¿½moire dans le temps", new Font("Serif", java.awt.Font.BOLD, 18)));
 	}
 	
 
@@ -66,7 +66,7 @@ public class ChartExemple extends ChartPanel {
 
 		SwingUtilities.invokeLater(() -> {
 			JFrame frame = new JFrame("ChartExemple");
-			ChartExemple ex = new ChartExemple();
+			Chart ex = new Chart();
 			ChartModel chartModel = new ChartModel(new IChartModelListener() {
 				@Override
 				public void dataChanged(XYDataset dataset) {
