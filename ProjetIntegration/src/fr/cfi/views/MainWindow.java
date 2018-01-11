@@ -22,9 +22,10 @@ import org.jfree.data.xy.XYDataset;
 
 import fr.cfi.model.ChartModel;
 import fr.cfi.model.Connect_BDD;
+import fr.cfi.model.EmailSender;
 import fr.cfi.model.IChartModelListener;
 import fr.cfi.model.IConnexion;
-import fr.cfi.model.TableModelCsv;
+import fr.cfi.model.TableModel;
 
 public class MainWindow extends JFrame {
 
@@ -47,10 +48,13 @@ public class MainWindow extends JFrame {
 		// Chargement fichier config
 		try {
 			String fichier = "./log/Configuration.txt";
-			propFile = new FileInputStream( fichier);
+			FileInputStream propFile = new FileInputStream( fichier);
 		
 			Properties p =new Properties(System.getProperties());
 			p.load(propFile);
+			System.setProperties(p);
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -66,7 +70,7 @@ public class MainWindow extends JFrame {
 
 		// TABLEAU PROCESS
 		tableExemple = new JTable();
-		TableModelCsv tableModel = new TableModelCsv();
+		TableModel tableModel = new TableModel();
 		tableExemple.setModel(tableModel);
 		tableModel.startMonitoring();
 		onglet.addTab("PROCESS", new JScrollPane(tableExemple));

@@ -9,7 +9,7 @@ import java.util.Set;
 
 import javax.swing.table.DefaultTableModel;
 
-public class TableModelCsv extends DefaultTableModel {
+public class TableModel extends DefaultTableModel {
 	/**
 	 * 
 	 */
@@ -22,7 +22,7 @@ public class TableModelCsv extends DefaultTableModel {
 	//private static String[] columnName = new String[] { "Name", "Path", "CPU", "Description", "ID", "Processname" };
 	private boolean started = false;
 
-	public TableModelCsv () {
+	public TableModel () {
 		initProcessRetriever();
 	}
 
@@ -47,7 +47,6 @@ public class TableModelCsv extends DefaultTableModel {
 	public int getRowCount() {
 		// TODO Auto-generated method stub
 		int ret = processList != null ? processList.size() : 0;
-		System.out.println("ret = " + ret);
 		return ret;
 	}
 

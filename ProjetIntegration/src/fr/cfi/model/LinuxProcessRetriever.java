@@ -6,10 +6,16 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class LinuxProcessRetriever implements IProcessRetriever {
 	private static final String[] colonneName = {"PRI", "PID", "%CPU", "Command", "%MEM", "Virtual Size"}; 
 	private static final int PROCESS_PID_INDEX = 1;
+	private static final int PROCESS_CPU_INDEX = 2;
+	private static final int PROCESS_NAME_INDEX = 3;
+	
+	public EmailSender email = new EmailSender();
+	private static Map<String, String[]> processAlerted = null;
 
 	@Override
 	public List<String[]> sortProcess() {
@@ -30,6 +36,7 @@ public class LinuxProcessRetriever implements IProcessRetriever {
 				if(ligne != null){
 					ligne = ligne.trim().replaceAll(" {2,}", " ");
 					split = ligne.split(" ");
+					surveyCPU(split);
 					process.add(split);
 					//System.out.println(Arrays.toString(split));
 				}
@@ -53,6 +60,23 @@ public class LinuxProcessRetriever implements IProcessRetriever {
 		return PROCESS_PID_INDEX;
 	}
 
+	private void surveyCPU(String[] valuesProcess) {
+		Double maxCPU = Double.parseDouble(System.getProperty("maxcpu"));
+		Double processCPU = Double.parseDouble(valuesProcess[PROCESS_CPU_INDEX]);
+		if(processCPU > maxCPU) {
+			System.out.println("cpu > seuil");
+			if(!processAlerted.isEmpty() && processAlerted != null) {
+				System.out.println("tableau pas vide");
+				if((processAlerted.get(valuesProcess[PROCESS_PID_INDEX])) == null) {
+					String textEmail = "Le processus " + valuesProcess[PROCESS_NAME_INDEX] + " a depasse le seuil de " + maxCPU + " %.";
+					System.out.println(textEmail);
+					processAlerted.put(valuesProcess[PROCESS_PID_INDEX], valuesProcess);
+					//email.sendEmail("Alerte charge CPU", "");
+				}
+			}
+		}
+		
+	}
 	
 	public static void main(String[] args) {
 		LinuxProcessRetriever linuxProcessRetriever = new LinuxProcessRetriever();

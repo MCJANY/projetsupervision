@@ -1,7 +1,11 @@
 host=192.168.30.56
+
 login_host=admin
 mdp_host=admin
-mail=mcjany78@gmail.com
-mail_mdp=azerty78
-maxcpu=55
 
+mail_host=smtp.gmail.com
+mail_user=mcjany78@gmail.com
+mail_mdp=azerty78
+
+mailDest=mcjany78@gmail.com
+maxcpu=55

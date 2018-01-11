@@ -98,7 +98,7 @@ public class WindowsProcessRetriever implements IProcessRetriever {
 			while ((ligne=reader.readLine()) != null) {
 				ligne = reader.readLine();
 				if(ligne != null){
-					ligne = ligne.replaceAll("\"", "").replace('ÿ', ' ');
+					ligne = ligne.replaceAll("\"", "").replace('ï¿½', ' ');
 					split = ligne.split(",");
 					
 					
@@ -129,7 +129,7 @@ public class WindowsProcessRetriever implements IProcessRetriever {
 			e.printStackTrace();
 		}
 		
-		System.out.println("tabProcess.size() = " + tabProcess.size());
+		//System.out.println("tabProcess.size() = " + tabProcess.size());
 		
 		return tabProcess;
 	}
