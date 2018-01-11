@@ -25,8 +25,8 @@ public class Chart extends ChartPanel {
 	
 	public Chart() {
 		super(ChartFactory.createTimeSeriesChart(             
-		         "Memory usage", 
-		         "Millisecond",              
+		         "CPU Usage", 
+		         "Time",              
 		         "%",              
 		         new TimeSeriesCollection(),             
 		         false,              
@@ -58,7 +58,7 @@ public class Chart extends ChartPanel {
 
 		//chart.getLegend().setFrame(BlockBorder.NONE);
 
-		chart.setTitle(new TextTitle("Utilisation m�moire dans le temps", new Font("Serif", java.awt.Font.BOLD, 18)));
+		chart.setTitle(new TextTitle("CPU Load", new Font("Serif", java.awt.Font.BOLD, 18)));
 	}
 	
 

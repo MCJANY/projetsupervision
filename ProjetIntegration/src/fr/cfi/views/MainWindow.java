@@ -3,8 +3,10 @@ package fr.cfi.views;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Properties;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,23 +30,32 @@ public class MainWindow extends JFrame {
 
 	private static IConnexion connexion;
 
-	/**
-		 * 
-		 */
+	FileInputStream propFile;
+	
+	
 	private static final long serialVersionUID = 1L;
 	// private JTable tableau;
-	private static JButton Identification = new JButton("Identification");
-	private JButton Supprimer = new JButton("Supprimer");
+	private static JButton Identification = new JButton("Login");
+	private JButton Supprimer = new JButton("Kill");
 	private JTable tableExemple = null;
 	JTabbedPane onglet = new JTabbedPane();
-	// private static String[] title = new String[]{"Name", "NPM", "Path",
-	// "ProductVersion", "Description", "Product", "Id", "ProcessName", "StartTime",
-	// "TotalProcessorTime"};
 
 	private static JLabel InformationsLabel = new JLabel("InformationsLabel");
 
 	public MainWindow() {
-		InformationsLabel.setText("Non connect� � la base de donn�es ..");
+		
+		// Chargement fichier config
+		try {
+			String fichier = "./log/Configuration.txt";
+			propFile = new FileInputStream( fichier);
+		
+			Properties p =new Properties(System.getProperties());
+			p.load(propFile);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		InformationsLabel.setText("database disconnected");
 		boolean connected = connexion.connecBD("", "admin", "admin");
 		Identification.setEnabled(connected);
 		// this.setLocationRelativeTo(null);
@@ -59,8 +70,6 @@ public class MainWindow extends JFrame {
 		tableExemple.setModel(tableModel);
 		tableModel.startMonitoring();
 		onglet.addTab("PROCESS", new JScrollPane(tableExemple));
-
-		// String title[] = { "Nom", "Performance", "Memoire", "Disque", "Reseau" };
 
 		JPanel pan = new JPanel();
 		Identification.setEnabled(false);
@@ -94,18 +103,18 @@ public class MainWindow extends JFrame {
 					/* Hashtable<String, String> result = */popup.login(tableExemple, connexion);
 				}
 
-				if (Identification.getText().equals("Se d�connecter")) {
+				if (Identification.getText().equals("Logout")) {
 					connexion.unlogUser();
 				}
 
 				// Identification.setEnabled(!connexion.isLogged());
 				if (connexion.isLogged()) {
-					Identification.setText("Se d�connecter");
+					Identification.setText("Logout");
 				} else {
 					// Popup popup = new Popup();
 					/// *Hashtable<String, String> result = */popup.login(tableExemple,connexion);
 					// System.out.println(result);
-					Identification.setText("Identification");
+					Identification.setText("Login");
 				}
 				Supprimer.setEnabled(connexion.isAdmin());
 			}

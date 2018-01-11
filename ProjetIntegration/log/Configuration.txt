@@ -1,3 +1,7 @@
 host=192.168.30.56
-maxcpu=90
-mail=mail@mail.fr
+login_host=admin
+mdp_host=admin
+mail=mcjany78@gmail.com
+mail_mdp=azerty78
+maxcpu=55
+

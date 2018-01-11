@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LinuxProcessRetriever implements IProcessRetriever {
+	private static final String[] colonneName = {"PRI", "PID", "%CPU", "Command", "%MEM", "Virtual Size"}; 
 
 	@Override
 	public List<String[]> sortProcess() {
@@ -17,9 +18,9 @@ public class LinuxProcessRetriever implements IProcessRetriever {
 		try {
 			linuxShellProcess = Runtime.getRuntime().exec(command);
 			linuxShellProcess.getOutputStream().close();
-			System.out.println("Close file .ps1");
+			//System.out.println("Close file .ps1");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(linuxShellProcess.getInputStream()));
-			System.out.println(reader.readLine());
+			//System.out.println(reader.readLine());
 			
 			String ligne;
 			String[] split = null;
@@ -29,7 +30,7 @@ public class LinuxProcessRetriever implements IProcessRetriever {
 					ligne = ligne.trim().replaceAll(" {2,}", " ");
 					split = ligne.split(" ");
 					process.add(split);
-					System.out.println(Arrays.toString(split));
+					//System.out.println(Arrays.toString(split));
 				}
 			}
 		} catch (IOException e) {
@@ -43,7 +44,6 @@ public class LinuxProcessRetriever implements IProcessRetriever {
 	
 	@Override
 	public String[] getColonnes() {
-		String[] colonneName = {"PRI", "PID", "%CPU", "Command", "%MEM", "Virtual Size"}; 
 		return colonneName;
 	}
 	
