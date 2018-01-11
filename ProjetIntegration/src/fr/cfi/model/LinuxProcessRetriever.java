@@ -9,6 +9,7 @@ import java.util.List;
 
 public class LinuxProcessRetriever implements IProcessRetriever {
 	private static final String[] colonneName = {"PRI", "PID", "%CPU", "Command", "%MEM", "Virtual Size"}; 
+	private static final int PROCESS_PID_INDEX = 1;
 
 	@Override
 	public List<String[]> sortProcess() {
@@ -46,6 +47,12 @@ public class LinuxProcessRetriever implements IProcessRetriever {
 	public String[] getColonnes() {
 		return colonneName;
 	}
+	
+	@Override
+	public int getPidIndex() {
+		return PROCESS_PID_INDEX;
+	}
+
 	
 	public static void main(String[] args) {
 		LinuxProcessRetriever linuxProcessRetriever = new LinuxProcessRetriever();

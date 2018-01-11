@@ -46,7 +46,9 @@ public class TableModelCsv extends DefaultTableModel {
 	@Override
 	public int getRowCount() {
 		// TODO Auto-generated method stub
-		return processList != null ? processList.size() : 0;
+		int ret = processList != null ? processList.size() : 0;
+		System.out.println("ret = " + ret);
+		return ret;
 	}
 
 	@Override
@@ -98,9 +100,12 @@ public class TableModelCsv extends DefaultTableModel {
 
 		List<String> newPIDList = new ArrayList<>();
 		List<String[]> sortedProcessList = processRet.sortProcess();
+		/*for(String[] komtuve : sortedProcessList) {
+			System.out.println(Arrays.toString(komtuve));
+		}*/
 		String pid = null;
 		for (String[] values : sortedProcessList) {
-			pid = values[WindowsProcessRetriever.COLONNE_PID_INDEX];
+			pid = values[processRet.getPidIndex()];
 			//System.out.println("Values= PID = " + pid + " => "+ Arrays.toString(values));
 			processList.put(pid, values);
 			if(!pidList.contains(pid)) {

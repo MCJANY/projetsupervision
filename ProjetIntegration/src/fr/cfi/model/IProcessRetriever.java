@@ -12,4 +12,6 @@ public interface IProcessRetriever {
 	public List<String[]> sortProcess() ;
 	
 	public String[] getColonnes();
+	
+	public int getPidIndex();
 }
