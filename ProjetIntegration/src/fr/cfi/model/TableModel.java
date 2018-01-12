@@ -130,6 +130,9 @@ public class TableModel extends DefaultTableModel {
 
 			for (String pidToRemove : removePID) {
 				processList.remove(pidToRemove);
+				if(pidList.contains(pidToRemove)) {
+					pidList.remove(pidToRemove);
+				}
 			}
 		}
 		
