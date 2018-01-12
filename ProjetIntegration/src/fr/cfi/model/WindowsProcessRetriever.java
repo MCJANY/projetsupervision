@@ -98,7 +98,7 @@ public class WindowsProcessRetriever implements IProcessRetriever {
 			while ((ligne=reader.readLine()) != null) {
 				ligne = reader.readLine();
 				if(ligne != null){
-					ligne = ligne.replaceAll("\"", "").replace('�', ' ');
+					ligne = ligne.replaceAll("\"", "").replace( (char) 255, ' ');
 					split = ligne.split(",");
 					
 					
