@@ -26,6 +26,8 @@ import fr.cfi.model.EmailSender;
 import fr.cfi.model.IChartModelListener;
 import fr.cfi.model.IConnexion;
 import fr.cfi.model.TableModel;
+import java.awt.Component;
+import javax.swing.Box;
 
 public class MainWindow extends JFrame {
 
@@ -42,6 +44,7 @@ public class MainWindow extends JFrame {
 	JTabbedPane onglet = new JTabbedPane();
 
 	private static JLabel InformationsLabel = new JLabel("InformationsLabel");
+	private final JButton btnPause = new JButton("Pause");
 
 	public MainWindow() {
 		
@@ -73,9 +76,18 @@ public class MainWindow extends JFrame {
 		TableModel tableModel = new TableModel();
 		tableExemple.setModel(tableModel);
 		tableModel.startMonitoring();
-		onglet.addTab("PROCESS", new JScrollPane(tableExemple));
+		JScrollPane scrollPane = new JScrollPane(tableExemple);
+		onglet.setBounds(0, 33, 984, 528);
+		onglet.addTab("PROCESS", scrollPane);
+		btnPause.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		scrollPane.setRowHeaderView(btnPause);
 
 		JPanel pan = new JPanel();
+		pan.setBounds(0, 0, 984, 33);
 		Identification.setEnabled(false);
 
 		// TABLEAU RAM
@@ -89,6 +101,7 @@ public class MainWindow extends JFrame {
 			}
 		});
 		chartModel.startMonitoring();
+		getContentPane().setLayout(null);
 		
 		onglet.addTab("CPU USAGE",ex);
 		//onglet.setTitleAt(1,"RAM");
@@ -97,7 +110,7 @@ public class MainWindow extends JFrame {
 		onglet.addTab("SERVICES",new JLabel("services"));
 		//onglet.setTitleAt(2,"SERVICES");
 		//onglet.add(tableExemple, 0);
-		add(onglet);
+		getContentPane().add(onglet);
 
 		// Gestion du Popup
 		Identification.addActionListener(new ActionListener() {
@@ -174,7 +187,7 @@ public class MainWindow extends JFrame {
 //		this.getContentPane().add(pan, BorderLayout.SOUTH);
 		//this.getContentPane().add(new JScrollPane(tableExemple), BorderLayout.WEST);
 		this.getContentPane().add(onglet, BorderLayout.CENTER);
-		this.getContentPane().add(pan, BorderLayout.NORTH);
+		this.getContentPane().add(pan);
 
 		pan.add(InformationsLabel);
 	}
