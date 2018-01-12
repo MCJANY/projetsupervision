@@ -29,7 +29,7 @@ public class Connect_BDD  implements IConnexion
 			String url = "jdbc:mysql://"+hostTmp+":3306/projet";
 			conn = DriverManager.getConnection(url, user, passwd);
 
-			System.out.println("Connexion effective !");     
+			System.out.println("Connection succeed !");     
 			connected = true;
 			MainWindow.setConnectionEstablished();
 
@@ -55,12 +55,12 @@ public class Connect_BDD  implements IConnexion
 					if(resQuery.getString("Mdp").equals(password)) {
 						logged = true;
 						admin = resQuery.getString("Status").equals("admin");
-						MainWindow.setInformationsLabelText((admin ? "Administrateur " : "Utilisateur ") + "identifi�");
+						MainWindow.setInformationsLabelText((admin ? "Admin " : "User ") + "identified");
 					}else {
-						MainWindow.setInformationsLabelText("Erreur : Mot de passe incorrect !");
+						MainWindow.setInformationsLabelText("Error : Wrong password !");
 					}
 				}else{
-					MainWindow.setInformationsLabelText("Erreur : Nom d'utilisateur incorrect !");
+					MainWindow.setInformationsLabelText("Error : Wrong username !");
 				}
 			}
 			
@@ -75,7 +75,7 @@ public class Connect_BDD  implements IConnexion
 		Thread thread = new Thread("Connection Thread") {
 			public void run() {
 				connectionBDD( host,  user,  password );
-				MainWindow.setInformationsLabelText("Connect� � la base de donn�es");
+				MainWindow.setInformationsLabelText("Connected to database");
 			};
 		};
 		
@@ -88,7 +88,7 @@ public class Connect_BDD  implements IConnexion
 	public void unlogUser(){
 		admin = false;
 		logged = false;
-		MainWindow.setInformationsLabelText("Utilisateur d�connect�");
+		MainWindow.setInformationsLabelText("User disconnected");
 	}
 
 
