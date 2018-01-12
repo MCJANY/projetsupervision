@@ -10,10 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 public class LinuxProcessRetriever implements IProcessRetriever {
-	private static final String[] colonneName = {"PRI", "PID", "%CPU", "Command", "%MEM", "Virtual Size"}; 
+	//private static final String[] colonneName = {"PRI", "PID", "%CPU", "Name", "%MEM", "Virtual Size"}; 
+	private static final String[] colonneName = {"Name", "PID", "%CPU", "%MEM", "Virtual Size"}; 
 	private static final int PROCESS_PID_INDEX = 1;
 	private static final int PROCESS_CPU_INDEX = 2;
-	private static final int PROCESS_NAME_INDEX = 3;
+	private static final int PROCESS_NAME_INDEX = 0;
 	
 	public EmailSender email = new EmailSender();
 	private static Map<String, String[]> processAlerted = new HashMap<>();
@@ -37,8 +38,9 @@ public class LinuxProcessRetriever implements IProcessRetriever {
 				if(ligne != null){
 					ligne = ligne.trim().replaceAll(" {2,}", " ");
 					split = ligne.split(" ");
-					surveyCPU(split);
-					process.add(split);
+					String[] tabProcess = {split[3], split[1], split[2], split[4], split[5]};
+					surveyCPU(tabProcess);
+					process.add(tabProcess);
 					//System.out.println(Arrays.toString(split));
 				}
 			}
@@ -66,13 +68,12 @@ public class LinuxProcessRetriever implements IProcessRetriever {
 		Double processCPU = Double.parseDouble(valuesProcess[PROCESS_CPU_INDEX]);
 		
 		if(processCPU > maxCPU) {
-			System.out.println("tableau pas vide");
 			if((processAlerted.get(valuesProcess[PROCESS_PID_INDEX])) == null) {
-				String textEmail = "Le processus " + valuesProcess[PROCESS_NAME_INDEX] + " a depasse le seuil de " + maxCPU + " %.";
+				String textEmail = "Be careful, CPU overload (>" + maxCPU + "%) detected on " + System.getProperty("user.name") +"'s computer (" + System.getProperty("os.name") + ")\n\nProcess: " + valuesProcess[PROCESS_NAME_INDEX] + "\nPID: " + valuesProcess[PROCESS_PID_INDEX] + "\nCPU: " + valuesProcess[PROCESS_CPU_INDEX] + " %";
 				System.out.println(textEmail);
 				processAlerted.put(valuesProcess[PROCESS_PID_INDEX], valuesProcess);
 				if(System.getProperty("enableMailNotification").equals("true")) {
-					email.sendEmail("Alerte charge CPU", textEmail);
+					email.sendEmail("Warning : CPU overload (Java Supervisor)", textEmail);
 				}
 			}
 		}

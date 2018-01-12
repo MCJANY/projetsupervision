@@ -69,4 +69,8 @@ public class ChartModel {
 			started = false;
 		}
 	}
+	
+	public boolean isStarted() {
+		return started;
+	}
 }

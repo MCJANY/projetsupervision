@@ -97,16 +97,8 @@ public class Connect_BDD  implements IConnexion
 	 * check if admin see @IConnexion
 	 */
 	@Override 
-	public boolean isAdmin() {
-//		Statement st = null;
-//		String sql = "SELECT * FROM log ";
-//		if(conn != null && !conn.isClosed()) {
-//			//conn.
-//			conn.createStatement();
-//			// TODO Auto-generated method stub
-//		}
-		
-		return false;
+	public boolean isAdmin() {	
+		return admin;
 	}
 
 	@Override

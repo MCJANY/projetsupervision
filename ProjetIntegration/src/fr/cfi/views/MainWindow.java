@@ -70,7 +70,7 @@ public class MainWindow extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Supervision");
 		this.setSize(1000, 600);
-
+		
 		// TABLEAU PROCESS
 		tableExemple = new JTable();
 		TableModel tableModel = new TableModel();
@@ -79,10 +79,7 @@ public class MainWindow extends JFrame {
 		JScrollPane scrollPane = new JScrollPane(tableExemple);
 		onglet.setBounds(0, 33, 984, 528);
 		onglet.addTab("PROCESS", scrollPane);
-		btnPause.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		
 		
 		scrollPane.setRowHeaderView(btnPause);
 
@@ -98,6 +95,17 @@ public class MainWindow extends JFrame {
 				JFreeChart chart = ex.getChart();
 				XYPlot plot = chart.getXYPlot();
 				plot.setDataset(dataset);
+			}
+		});
+		btnPause.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(tableModel.isStarted()) {
+					tableModel.stopMonitoring();
+					btnPause.setText("Start");
+				}else {
+					tableModel.startMonitoring();
+					btnPause.setText("Pause");
+				}
 			}
 		});
 		chartModel.startMonitoring();
@@ -148,19 +156,27 @@ public class MainWindow extends JFrame {
 				if (selectedRows != null && selectedRows.length > 0) {
 					for (int arow : selectedRows) {
 						// selectedRows[0];
-						Object value = tableExemple.getValueAt(selectedRows[0], 4);
+						String command = null;
+						Object value = tableExemple.getValueAt(selectedRows[0], 1);
+						System.out.println(Arrays.toString(selectedRows));
 						System.out.println("tableau[" + arow + "]=" + value);
-						String command = "powershell.exe Get-Process -ID " + value + " | Stop-Process ";
+						String property = System.getProperty("os.name");
+						System.out.println("os.name="+ property);
+						if(property.toLowerCase().contains("windows")) {
+							command = "powershell.exe Get-Process -ID " + value + " | Stop-Process ";
+						}else{
+							command = " kill -9 " + value;
+						}
 						System.out.println(command);
-						Process powerShellProcess = null;
+						Process execCommand = null;
 						try {
-							powerShellProcess = Runtime.getRuntime().exec(command);
+							execCommand = Runtime.getRuntime().exec(command);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						try {
-							powerShellProcess.getOutputStream().close();
+							execCommand.getOutputStream().close();
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -178,8 +194,8 @@ public class MainWindow extends JFrame {
 				Supprimer.setEnabled(false);
 			}
 		});
-
-		Supprimer.setEnabled(false);
+		/**     **/
+		Supprimer.setEnabled(true);
 		pan.add(Identification);
 		pan.add(Supprimer);
 

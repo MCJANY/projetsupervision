@@ -165,4 +165,7 @@ public class TableModel extends DefaultTableModel {
 		}
 	}
 	
+	public boolean isStarted() {
+		return started;
+	}
 }
