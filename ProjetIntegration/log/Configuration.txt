@@ -1,8 +1,9 @@
 host=192.168.30.56
-
 login_host=admin
 mdp_host=admin
 
+
+enableMailNotification=true
 mail_host=smtp.gmail.com
 mail_user=mcjany78@gmail.com
 mail_mdp=azerty78
